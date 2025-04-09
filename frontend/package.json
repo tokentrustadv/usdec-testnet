@@ -13,6 +13,6 @@
     "react-dom": "18.2.0",
     "wagmi": "^1.6.2",
     "viem": "^1.16.0",
-    "@rainbow-me/rainbowkit": "^0.9.19"
+    "@rainbow-me/rainbowkit": "^0.8.6"
   }
 }
