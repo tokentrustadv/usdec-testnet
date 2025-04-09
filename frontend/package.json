@@ -14,5 +14,8 @@
     "wagmi": "0.6.12",
     "viem": "^1.16.0",
     "@rainbow-me/rainbowkit": "0.7.0"
+  },
+  "resolutions": {
+    "wagmi": "0.6.12"
   }
 }
