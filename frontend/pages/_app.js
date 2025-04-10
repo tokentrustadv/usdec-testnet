@@ -1,10 +1,11 @@
 import '../styles.css';
-import { WagmiConfig, createClient, chain, configureChains } from 'wagmi';
+import { WagmiConfig, createClient, configureChains } from 'wagmi';
 import { publicProvider } from 'wagmi/providers/public';
 import { RainbowKitProvider, getDefaultWallets } from '@rainbow-me/rainbowkit';
+import { baseSepolia } from 'wagmi/chains'; // ✅ Add this
 
 const { chains, provider } = configureChains(
-  [chain.goerli], // Swap for another testnet like Goerli if Base isn't supported directly
+  [baseSepolia], // ✅ Switch from Goerli to Base Sepolia
   [publicProvider()]
 );
 
