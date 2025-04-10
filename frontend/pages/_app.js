@@ -2,10 +2,10 @@ import '../styles.css';
 import { WagmiConfig, createClient, configureChains } from 'wagmi';
 import { publicProvider } from 'wagmi/providers/public';
 import { RainbowKitProvider, getDefaultWallets } from '@rainbow-me/rainbowkit';
-import { baseSepolia } from 'wagmi/chains'; // ✅ Add this
+import { baseSepolia } from 'wagmi/chains'; // ✅ Needed for Base Sepolia config
 
 const { chains, provider } = configureChains(
-  [baseSepolia], // ✅ Switch from Goerli to Base Sepolia
+  [baseSepolia],
   [publicProvider()]
 );
 
