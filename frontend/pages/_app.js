@@ -1,29 +1,27 @@
 import '../styles.css';
-import { WagmiConfig, createConfig, configureChains } from 'wagmi';
+import { WagmiConfig, createClient, chain, configureChains } from 'wagmi';
 import { publicProvider } from 'wagmi/providers/public';
-import { baseSepolia } from 'wagmi/chains';
 import { RainbowKitProvider, getDefaultWallets } from '@rainbow-me/rainbowkit';
 
-const { chains, publicClient } = configureChains(
-  [baseSepolia],
+const { chains, provider } = configureChains(
+  [chain.goerli], // Swap for another testnet like Goerli if Base isn't supported directly
   [publicProvider()]
 );
 
 const { connectors } = getDefaultWallets({
   appName: 'USDEC Test',
-  projectId: 'YOUR_PROJECT_ID', // You can use any test ID or get a real one at walletconnect.com
   chains,
 });
 
-const wagmiConfig = createConfig({
+const wagmiClient = createClient({
   autoConnect: true,
   connectors,
-  publicClient,
+  provider,
 });
 
 export default function App({ Component, pageProps }) {
   return (
-    <WagmiConfig config={wagmiConfig}>
+    <WagmiConfig client={wagmiClient}>
       <RainbowKitProvider chains={chains}>
         <Component {...pageProps} />
       </RainbowKitProvider>
