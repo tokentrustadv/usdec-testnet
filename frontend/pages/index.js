@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useAccount, useContractWrite, usePrepareContractWrite } from 'wagmi';
 import usdecAbi from '../usdecAbi.json';
@@ -9,20 +9,18 @@ export default function Home() {
   const { address, isConnected } = useAccount();
   const [amount, setAmount] = useState('');
 
-  const parsedAmount = useMemo(() => {
-    if (!amount) return undefined;
-    return parseInt(amount) * 1e6;
-  }, [amount]);
+  const parsedAmount = parseFloat(amount);
+  const isValidAmount = !isNaN(parsedAmount) && parsedAmount > 0;
 
   const { config } = usePrepareContractWrite({
     address: USDEC_ADDRESS,
     abi: usdecAbi,
     functionName: 'mint',
-    args: parsedAmount !== undefined ? [parsedAmount] : undefined,
-    enabled: parsedAmount !== undefined,
+    enabled: isValidAmount && isConnected,
+    args: [address, isValidAmount ? parsedAmount * 1e6 : undefined], // 6 decimal formatting
   });
 
-  const { write } = useContractWrite(config);
+  const { write, isLoading } = useContractWrite(config);
 
   return (
     <div style={{ padding: '2rem' }}>
@@ -35,9 +33,15 @@ export default function Home() {
             placeholder="Amount (Max 500 USDC)"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
+            min="0"
+            step="0.01"
           />
-          <button onClick={() => write?.()} disabled={!write}>
-            Mint USDEC
+          <button
+            onClick={() => write?.()}
+            disabled={!write || isLoading}
+            style={{ marginLeft: '1rem' }}
+          >
+            {isLoading ? 'Minting...' : 'Mint USDEC'}
           </button>
         </div>
       )}
