@@ -3,7 +3,7 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useAccount, useContractWrite, usePrepareContractWrite } from 'wagmi';
 import usdecAbi from '../usdecAbi.json';
 
-const USDEC_ADDRESS = '0x7c06dFaE7856e1D1715b0B4f0A6F1Dd735ba9602';
+const USDEC_ADDRESS = '0xcd6a6f61aee308885ae837a539418de3a63ffabc96229e966b93c53f206b19bb';
 
 export default function Home() {
   const { address, isConnected } = useAccount();
