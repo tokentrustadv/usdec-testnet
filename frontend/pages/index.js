@@ -13,12 +13,12 @@ export default function Home() {
   const isValidAmount = !isNaN(parsedAmount) && parsedAmount > 0;
 
   const { config } = usePrepareContractWrite({
-    address: USDEC_ADDRESS,
-    abi: usdecAbi,
-    functionName: 'mint',
-    enabled: isValidAmount && isConnected,
-    args: [address, isValidAmount ? parsedAmount * 1e6 : undefined], // 6 decimal formatting
-  });
+  address: USDEC_ADDRESS,
+  abi: usdecAbi,
+  functionName: 'mint',
+  enabled: isConnected && isValidAmount && !!address,
+  args: address && isValidAmount ? [address, parsedAmount * 1e6] : undefined,
+});
 
   const { write, isLoading } = useContractWrite(config);
   
