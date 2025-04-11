@@ -21,6 +21,8 @@ export default function Home() {
   });
 
   const { write, isLoading } = useContractWrite(config);
+  
+  console.log({ isConnected, isValidAmount, config, write });
 
   return (
     <div style={{ padding: '2rem' }}>
